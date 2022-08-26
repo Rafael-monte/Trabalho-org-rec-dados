@@ -1,0 +1,3 @@
+C:/Users/rafae.DESKTOP-RS4NIMH/CLionProjects/trabalho-org-e-rec-dados/cmake-build-debug/CMakeFiles/trabalho_org_e_rec_dados.dir
+C:/Users/rafae.DESKTOP-RS4NIMH/CLionProjects/trabalho-org-e-rec-dados/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/rafae.DESKTOP-RS4NIMH/CLionProjects/trabalho-org-e-rec-dados/cmake-build-debug/CMakeFiles/rebuild_cache.dir
