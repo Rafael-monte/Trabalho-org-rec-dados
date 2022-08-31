@@ -1,3 +1,4 @@
+#pragma once
 #include "flag-controller.h"
 #include <stdio.h>
 #include <stdlib.h>

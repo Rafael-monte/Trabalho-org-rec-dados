@@ -1,0 +1,100 @@
+1|The Legend of Zelda: Majora's Mask|2000|Action-adventure|Nintendo|Nintendo 64|
+2|Grand Theft Auto: Vice City|2002|Action-adventure|Rockstar Games|PlayStation 2|
+3|Ultima Online|1997|MMORPG|Electronic Arts|PC|
+4|SimCity 2000|1993|City-building|Maxis|Macintosh|
+5|Duke Nukem 3D|1996|First-person shooter|GT Interactive|PC|
+6|Myst|1993|Adventure|Broderbund|Macintosh|
+7|Nights into Dreams...|1996|Action|Sega|Sega Saturn|
+8|"WarioWare, Inc.: Mega Microgames!"|2003|Action|Nintendo|Game Boy Advance|
+9|The Secret of Monkey Island|1990|Adventure|LucasArts|PC|
+10|Dragon Quest VIII|2004|Role-playing|Square Enix|PlayStation 2|
+11|Persona 4|2008|Role-playing|Atlus|PlayStation 2|
+12|Katamari Damacy|2004|Action|Namco|PlayStation 2|
+13|Sonic the Hedgehog|1991|Platform|Sega|Sega Genesis|
+14|StarCraft II: Wings of Liberty|2010|Real-time strategy|Blizzard Entertainment|PC|
+15|Final Fantasy VII|1997|Role-playing|Square|PlayStation|
+16|PaRappa the Rapper|1996|Rhythm|Sony Computer Entertainment|PlayStation|
+17|R-Type|1987|Shoot 'em up|Irem|Arcade|
+18|Bloodborne|2015|Action role-playing|Sony Computer Entertainment|PlayStation 4|
+19|Mortal Kombat II|1993|Fighting|Midway|Arcade|
+20|Asteroids|1979|Shoot 'em up|Atari|Arcade|
+21|Lode Runner|1983|Platform|Broderbund|Apple II|
+22|Tetris|1984|Puzzle|Elorg|Electronika 60|
+23|Secret of Mana|1993|Action role-playing|Square|Super NES|
+24|Missile Command|1980|Shoot 'em up|Atari|Arcade|
+25|Super Mario Galaxy|2007|Platform|Nintendo|Wii|
+26|Fallout 3|2008|Action role-playing|Bethesda Softworks|"PC, PlayStation 3, Xbox 360"|
+27|NBA Jam|1993|Sports|Midway|Arcade|
+28|Gears of War 2|2008|Third-person shooter|Microsoft Game Studios|Xbox 360|
+29|Tomb Raider|1996|Action-adventure|Eidos Interactive|"Sega Saturn, PlayStation"|
+30|Max Payne|2001|Third-person shooter|Gathering of Developers|PC|
+31|Dota 2|2013|MOBA|Valve|PC|
+32|Halo 2|2004|First-person shooter|Microsoft Game Studios|Xbox|
+33|Dead Space|2008|Survival horror|Electronic Arts|"PlayStation 3, Xbox 360"|
+34|GoldenEye 007|1997|First-person shooter|Nintendo|Nintendo 64|
+35|EarthBound|1994|Role-playing|Nintendo|Super NES|
+36|Quake II|1997|First-person shooter|Activision|PC|
+37|Quake III: Arena|1999|First-person shooter|Activision|PC|
+38|Lemmings|1991|Puzzle|Psygnosis|Amiga|
+39|Pong|1972|Sports|Atari|Arcade|
+40|Speedball 2: Brutal Deluxe|1990|Sports|Image Works|Atari ST|
+41|Out Run|1986|Racing|Sega|Arcade|
+42|Gran Turismo 3: A-Spec|2001|Racing|Sony Computer Entertainment|PlayStation 2|
+43|Mike Tyson's Punch-Out!!|1987|Sports|Nintendo|NES|
+44|Zork|1977|Adventure|Infocom|PDP-10|
+45|Dishonored|2012|Stealth|Bethesda Softworks|"PC, PlayStation 3, Xbox 360"|
+46|The Legend of Zelda: The Wind Waker|2002|Action-adventure|Nintendo|GameCube|
+47|The Oregon Trail|1971|Strategy|MECC|HP 2100|
+48|Mass Effect|2007|Action role-playing|Microsoft Game Studios|Xbox 360|
+49|Wave Race 64|1996|Racing|Nintendo|Nintendo 64|
+50|Animal Crossing|2001|Life simulation|Nintendo|GameCube|
+51|Wolfenstein 3D|1992|First-person shooter|Apogee Software|PC|
+52|Ico|2001|Action-adventure|Sony Computer Entertainment|PlayStation 2|
+53|Left 4 Dead 2|2009|First-person shooter|Valve|"PC, Xbox 360"|
+54|Super Meat Boy|2010|Platform|Team Meat|Xbox 360|
+55|Elite|1984|Space flight simulator|Acornsoft|BBC Micro|
+56|Final Fantasy Tactics|1997|Tactical role-playing|Square|PlayStation|
+57|Thief II: The Metal Age|2000|Stealth|Eidos Interactive|PC|
+58|Star Wars: Knights of the Old Republic|2003|Role-playing|LucasArts|Xbox|
+59|Grim Fandango|1998|Adventure|LucasArts|PC|
+60|Metroid Prime|2002|Action-adventure|Nintendo|GameCube|
+61|The Elder Scrolls V: Skyrim|2011|Action role-playing|Bethesda Softworks|"PC, PlayStation 3, Xbox 360"|
+62|Ōkami|2006|Action-adventure|Capcom|PlayStation 2|
+63|Call of Duty 4: Modern Warfare|2007|First-person shooter|Activision|"PC, PlayStation 3, Xbox 360"|
+64|Angry Birds|2009|Puzzle|Rovio Entertainment|"Maemo, iOS"|
+65|Limbo|2010|Platform|Microsoft Game Studios|Xbox 360|
+66|Thief: The Dark Project|1998|Stealth|Eidos Interactive|PC|
+67|World of Warcraft|2004|MMORPG|Blizzard Entertainment|PC|
+68|Street Fighter II|1991|Fighting|Capcom|Arcade|
+69|Space Invaders|1978|Shoot 'em up|Taito|Arcade|
+70|Halo: Combat Evolved|2001|First-person shooter|Microsoft Game Studios|Xbox|
+71|Batman: Arkham Asylum|2009|Action-adventure|Warner Bros. Interactive Entertainment|"PlayStation 3, Xbox 360"|
+72|MechWarrior 2: 31st Century Combat|1995|Vehicle simulation|Activision|PC|
+73|Star Wars|1983|Shoot 'em up|Atari|Arcade|
+74|Hitman: Blood Money|2006|Stealth|Eidos Interactive|"PC, PlayStation 2, Xbox, Xbox 360"|
+75|The Legend of Zelda: Ocarina of Time|1998|Action-adventure|Nintendo|Nintendo 64|
+76|Command & Conquer: Red Alert|1996|Real-time strategy|Virgin Interactive|PC|
+77|Sensible World of Soccer|1994|Sports|Renegade Software|Amiga|
+78|Wii Sports|2006|Sports|Nintendo|Wii|
+79|Metal Gear Solid 3: Snake Eater|2004|Stealth|Konami|PlayStation 2|
+80|Grand Theft Auto V|2013|Action-adventure|Rockstar Games|"PlayStation 3, Xbox 360"|
+81|Star Fox|1993|Shoot 'em up|Nintendo|Super NES|
+82|Shadow of the Colossus|2005|Action-adventure|Sony Computer Entertainment|PlayStation 2|
+83|The Legend of Zelda: Breath of the Wild|2017|Action-adventure|Nintendo|"Nintendo Switch, Wii U"|
+84|Castlevania: Symphony of the Night|1997|Action-adventure|Konami|PlayStation|
+85|The Elder Scrolls III: Morrowind|2002|Action role-playing|Bethesda Softworks|PC|
+86|Assassin's Creed II|2009|Action-adventure|Ubisoft|"PlayStation 3, Xbox 360"|
+87|Defender|1981|Shoot 'em up|Williams Entertainment|Arcade|
+88|Rock Band|2007|Rhythm|MTV Games|"PlayStation 3, Xbox 360"|
+89|Super Mario Galaxy 2|2010|Platform|Nintendo|Wii|
+90|Tom Clancy's Splinter Cell: Chaos Theory|2005|Stealth|Ubisoft|"GameCube, PC, PlayStation 2, Xbox"|
+91|Rez|2001|Shoot 'em up|Sega|"Dreamcast, PlayStation 2"|
+92|Mega Man 2|1988|Platform|Capcom|NES|
+93|Pokémon Red and Blue|1996|Role-playing|Nintendo|Game Boy|
+94|Hotline Miami|2012|Action|Devolver Digital|PC|
+95|Braid|2008|Puzzle-platformer|Microsoft Game Studios|Xbox 360|
+96|Adventure|1980|Action-adventure|Atari|Atari 2600|
+97|Minecraft|2011|Sandbox|Mojang|PC|
+98|Spelunky|2008|Platform|Derek Yu|PC|
+99|Uncharted 2: Among Thieves|2009|Action-adventure|Sony Computer Entertainment|PlayStation 3|
+100|Portal 2|2011|Puzzle-platformer|Valve|"PC, PlayStation 3, Xbox 360"|

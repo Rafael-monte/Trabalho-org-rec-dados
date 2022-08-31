@@ -1,11 +1,17 @@
+
 #ifndef TRABALHO_ORG_E_REC_DADOS_FILE_HANDLER_H
 #define TRABALHO_ORG_E_REC_DADOS_FILE_HANDLER_H
 
-#include "../file-handler/file-handler.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-void OperacoesEmLote(Processo* processo);
+void HandleProcesso(struct Processo* processo);
 
-void ImportarRegistro(Processo* processo);
+void OperacoesEmLote(struct Processo* processo);
+
+void ImportarRegistro(struct Processo* processo);
+
+FILE* AbrirArquivo(char* nomeArquivo, char* modoAcesso);
 
 
 #endif //TRABALHO_ORG_E_REC_DADOS_FILE_HANDLER_H
