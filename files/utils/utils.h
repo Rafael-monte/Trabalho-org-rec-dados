@@ -5,4 +5,6 @@
 #include <string.h>
 char* ConvertCharToString(char character);
 
+void RedefinirTamanhoString(char* string, int novoTamanho);
+
 #endif

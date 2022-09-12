@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "flag-controller.h": "c",
-        "stdio.h": "c",
-        "file-handler.h": "c",
-        "stdlib.h": "c"
-    }
-}

@@ -12,7 +12,7 @@ const char* ARQUIVO_OPERACOES="-e";
 const char* ARQUIVO_IMPORTACAO="-i";
 const int POSICAO_FLAG_OPERACAO=1;
 const int POSICAO_ARQUIVO_TARGET=2;
-const char* NOME_ARQUIVO_PRINCIPAL="games.txt";
+const char* NOME_ARQUIVO_PRINCIPAL="dados.dat\0";
 
 struct Processo* ProcessarFlagsIniciais(int numero_argumentos, char* argumentos[]);
 struct Processo* ProcessarSubFlags(int numero_argumentos, char* argumentos[]);
