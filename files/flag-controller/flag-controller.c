@@ -58,9 +58,7 @@ struct Processo* ProcessarArquivoComandos(FILE* arquivo_comandos)
         }
         else
         {
-            printf("Buffer: %s\n", buffer);
             int indice_espaco = IndexOf(buffer, ' ');
-            printf("Posicao espaco: %d\n", indice_espaco);
 
             memmove(&buffer[indice_espaco], &buffer[indice_espaco+1], strlen(buffer) - indice_espaco);
             
@@ -72,7 +70,6 @@ struct Processo* ProcessarArquivoComandos(FILE* arquivo_comandos)
             pivot->operacao = buffer[0];
 
             strcpy(pivot->parametro_operacao, bufferParametro);
-            printf("Operacao: %c; Parametro: %s\n\n",pivot->operacao, pivot->parametro_operacao);
             posicaoCaractereAtual = 0;
             LimparBuffer(bufferParametro);
             pivot->proximo_processo = malloc(sizeof(struct Processo));
@@ -93,9 +90,7 @@ struct Processo* ProcessarArquivoComandos(FILE* arquivo_comandos)
 
 void InserirInformacoesNoComando(struct Processo* comando, char buffer[], char bufferParametro[], char bufferOperacao[256], int posicaoCaractereAtual)
 {
-    printf("Buffer: %s\n", buffer);
     int indice_espaco = IndexOf(buffer, ' ');
-    printf("Posicao espaco: %d\n", indice_espaco);
 
     memmove(&buffer[indice_espaco], &buffer[indice_espaco+1], strlen(buffer) - indice_espaco);
     
@@ -107,7 +102,6 @@ void InserirInformacoesNoComando(struct Processo* comando, char buffer[], char b
     comando->operacao = buffer[0];
 
     strcpy(comando->parametro_operacao, bufferParametro);
-    printf("Operacao: %c; Parametro: %s\n\n",comando->operacao, comando->parametro_operacao);
     posicaoCaractereAtual = 0;
     LimparBuffer(bufferParametro);
     comando->proximo_processo = malloc(sizeof(struct Processo));
