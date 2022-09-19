@@ -7,4 +7,6 @@ char* ConvertCharToString(char character);
 
 void RedefinirTamanhoString(char* string, int novoTamanho);
 
+int IndexOf(char* string, char character);
+
 #endif
