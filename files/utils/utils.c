@@ -16,3 +16,21 @@ void RedefinirTamanhoString(char* string, int novoTamanho)
 }
 
 
+int IndexOf(char* string, char character)
+{
+    int index = -1;
+
+    for (int i = 0; i < strlen(string); i++)
+    {
+        if (string[i] == character)
+        {
+            index = i;
+            break;
+        }
+    }
+
+    return index;
+    
+}
+
+

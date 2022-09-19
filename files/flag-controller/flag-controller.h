@@ -20,6 +20,7 @@ const char* NOME_ARQUIVO_PRINCIPAL="dados.dat\0";
 struct Processo* ProcessarFlagsIniciais(int numero_argumentos, char* argumentos[]);
 struct Processo* ProcessarSubFlags(int numero_argumentos, char* argumentos[]);
 struct Processo* ProcessarArquivoComandos(FILE* arquivo_comandos);
+void InserirInformacoesNoComando(struct Processo* comando, char buffer[], char bufferParametro[], char bufferOperacao[], int posicaoCaractereAtual);
 
 
 #endif //FLAG_CONTROLLER_H

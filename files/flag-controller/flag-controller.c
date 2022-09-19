@@ -39,10 +39,14 @@ struct Processo* ProcessarArquivoComandos(FILE* arquivo_comandos)
     char caractereAtual;
     char buffer[256];
     char bufferOperacao[256];
+    char bufferParametro[256];
     int posicaoCaractereAtual=0;
     char* token;
     struct Processo* processo_final = malloc(sizeof(struct Processo));
     struct Processo* pivot = processo_final;
+
+
+    
     while ((caractereAtual = fgetc(arquivo_comandos)) != EOF)
     {
         if (caractereAtual != '\n')
@@ -50,27 +54,56 @@ struct Processo* ProcessarArquivoComandos(FILE* arquivo_comandos)
            buffer[posicaoCaractereAtual] = caractereAtual;
            buffer[posicaoCaractereAtual+1]='\0';
            posicaoCaractereAtual++;
+           
         }
         else
         {
-            printf("\nString atual: %s\n", buffer);
-            token = strtok(buffer, " ");
-            pivot->operacao = buffer[0];
-            for (int i = 3; i < posicaoCaractereAtual; i++)
+            int indice_espaco = IndexOf(buffer, ' ');
+
+            memmove(&buffer[indice_espaco], &buffer[indice_espaco+1], strlen(buffer) - indice_espaco);
+            
+            for (int i = indice_espaco; i < posicaoCaractereAtual; i++)
             {
-                bufferOperacao[i - 3] = buffer[i];
+               bufferParametro[i - indice_espaco] = buffer[i];
             }
-            strcpy(pivot->parametro_operacao, bufferOperacao);
-            token = strtok(NULL, " ");
-            strcpy(pivot->parametro_operacao, token);
-            printf("\nOperacao: %s\n", pivot->parametro_operacao);
+
+            pivot->operacao = buffer[0];
+
+            strcpy(pivot->parametro_operacao, bufferParametro);
             posicaoCaractereAtual = 0;
-            LimparBuffer(buffer);
-            LimparBuffer(bufferOperacao);
+            LimparBuffer(bufferParametro);
             pivot->proximo_processo = malloc(sizeof(struct Processo));
             pivot = pivot->proximo_processo;
+            memset(buffer, '\0', sizeof(buffer));
+            memset(bufferParametro, '\0', sizeof(bufferParametro));
+            memset(bufferOperacao, '\0', sizeof(bufferOperacao));
+
         }
     }
+    InserirInformacoesNoComando(pivot, buffer, bufferParametro, bufferOperacao, posicaoCaractereAtual);
+    memset(buffer, '\0', sizeof(buffer));
+    memset(bufferParametro, '\0', sizeof(bufferParametro));
+    memset(bufferOperacao, '\0', sizeof(bufferOperacao));
     pivot->proximo_processo = NULL;
     return processo_final;
+}
+
+void InserirInformacoesNoComando(struct Processo* comando, char buffer[], char bufferParametro[], char bufferOperacao[256], int posicaoCaractereAtual)
+{
+    int indice_espaco = IndexOf(buffer, ' ');
+
+    memmove(&buffer[indice_espaco], &buffer[indice_espaco+1], strlen(buffer) - indice_espaco);
+    
+    for (int i = indice_espaco; i < posicaoCaractereAtual; i++)
+    {
+        bufferParametro[i - indice_espaco] = buffer[i];
+    }
+
+    comando->operacao = buffer[0];
+
+    strcpy(comando->parametro_operacao, bufferParametro);
+    posicaoCaractereAtual = 0;
+    LimparBuffer(bufferParametro);
+    comando->proximo_processo = malloc(sizeof(struct Processo));
+    comando = comando->proximo_processo;
 }

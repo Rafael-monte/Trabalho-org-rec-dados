@@ -70,6 +70,17 @@ FILE* CopiarConteudoDoArquivo(FILE* arquivoQueSeraCopiado, FILE* arquivoFinal)
             LimparBuffer(buffer);
         }
     }
+    char registroFinal[2056];
+    short tamanho_registro = strlen(buffer);
+    char tamEmString[9];
+    itoa(tamanho_registro, tamEmString, 10);
+    strcpy(registroFinal, tamEmString);
+    strcat(registroFinal, "|");
+    strcat(registroFinal, buffer);
+    fputs(registroFinal, arquivoFinal);
+    posicaoAtual++;
+    posicaoCaractereAtual = 0;
+    LimparBuffer(buffer);
 }
 
 
@@ -87,11 +98,17 @@ void OperacoesEmLote(struct Processo* processo)
     printf("Arquivo -> %s \n", processo->nome_arq_principal);
     printf("Arquivo secundario ->%s\n", processo->nome_arq_busca);
     FILE* arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "r+");
-    FILE* arquivoAdicional = AbrirArquivo(processo->nome_arq_busca, "r+");
+    FILE* arquivo_comandos = AbrirArquivo(processo->nome_arq_busca, "r+");
     printf("Iniciando operacoes em lote!");
-    
+    struct Processo* comandos = ProcessarArquivoComandos(arquivo_comandos);
+    struct Processo* pivot = comandos;
 
-    
+
+    while (pivot != NULL)
+    {
+        printf("Comando: %c; Parametro %s\n", pivot->operacao, pivot->parametro_operacao);
+        pivot = pivot->proximo_processo;
+    }
 
 
 }
