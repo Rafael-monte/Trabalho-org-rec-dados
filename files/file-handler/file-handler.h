@@ -31,4 +31,14 @@ void AdicionarCampoAoArquivo(char* campo, FILE* arquivoDestino);
 
 void LimparBuffer(char buffer[]);
 
+
+int BuscarRegistro(FILE* arquivo_dados, char* id_reg);
+
+int InserirRegistro(FILE* arquivo_dados, char registro[256]);
+
+int buscar_campo(char* campo, int tam, FILE* arquivo_dados);
+
+char* buscar_codigo_registro(char registro[512]);
+
+
 #endif //TRABALHO_ORG_E_REC_DADOS_FILE_HANDLER_H
