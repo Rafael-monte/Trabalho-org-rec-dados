@@ -31,4 +31,10 @@ void AdicionarCampoAoArquivo(char* campo, FILE* arquivoDestino);
 
 void LimparBuffer(char buffer[]);
 
+
+void BuscarRegistro(FILE* arquivo_dados, char* id_reg);
+
+
+short leia_reg(char * buffer, int tam, FILE* arq);
+
 #endif //TRABALHO_ORG_E_REC_DADOS_FILE_HANDLER_H

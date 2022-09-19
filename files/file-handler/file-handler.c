@@ -62,7 +62,7 @@ FILE* CopiarConteudoDoArquivo(FILE* arquivoQueSeraCopiado, FILE* arquivoFinal)
             char tamEmString[9];
             itoa(tamanho_registro, tamEmString, 10);
             strcpy(registroFinal, tamEmString);
-            strcat(registroFinal, "|");
+            // strcat(registroFinal, "|");
             strcat(registroFinal, buffer);
             fputs(registroFinal, arquivoFinal);
             posicaoAtual++;
@@ -75,7 +75,7 @@ FILE* CopiarConteudoDoArquivo(FILE* arquivoQueSeraCopiado, FILE* arquivoFinal)
     char tamEmString[9];
     itoa(tamanho_registro, tamEmString, 10);
     strcpy(registroFinal, tamEmString);
-    strcat(registroFinal, "|");
+    // strcat(registroFinal, "|");
     strcat(registroFinal, buffer);
     fputs(registroFinal, arquivoFinal);
     posicaoAtual++;
@@ -99,18 +99,56 @@ void OperacoesEmLote(struct Processo* processo)
     printf("Arquivo secundario ->%s\n", processo->nome_arq_busca);
     FILE* arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "r+");
     FILE* arquivo_comandos = AbrirArquivo(processo->nome_arq_busca, "r+");
-    printf("Iniciando operacoes em lote!");
+    printf("Iniciando operacoes em lote!\n\n");
     struct Processo* comandos = ProcessarArquivoComandos(arquivo_comandos);
     struct Processo* pivot = comandos;
 
 
     while (pivot != NULL)
     {
-        printf("Comando: %c; Parametro %s\n", pivot->operacao, pivot->parametro_operacao);
+        if (pivot->operacao == 'b')
+        {
+            BuscarRegistro(arquivoOrigem, pivot->parametro_operacao);
+        }
+        
+        
         pivot = pivot->proximo_processo;
     }
 
 
+}
+
+
+void BuscarRegistro(FILE* arquivo_dados, char* id_reg)
+{
+    printf("Id buscado:%s\n", id_reg);
+
+    char buffer[500];
+    char* id_atual;
+    int achou = 0;
+    short comp_reg;
+    comp_reg = leia_reg(buffer, 500, arquivo_dados);
+
+
+    while(!achou && comp_reg > 0)
+    {
+        id_atual = strtok(buffer, "|");
+        printf("Id atual:%s\n",id_atual);
+        if (strcmp(id_atual, id_reg) == 0)
+        {
+            achou = 1;
+        } 
+        else 
+        {
+            comp_reg = leia_reg(buffer, 500, arquivo_dados);
+        }
+    }
+
+
+    if (achou)
+    {
+        printf("Id encontrado!\n");
+    }
 }
 
 
@@ -123,4 +161,22 @@ FILE* AbrirArquivo(char* nomeArquivo, char* modoAcesso)
         exit(1);
     }
     return arq;
+}
+
+
+short leia_reg(char * buffer, int tam, FILE* arq){
+    short comp_reg;
+
+    if (fread(&comp_reg, sizeof(comp_reg), 1, arq) == 0) {
+        return 0;
+    }
+
+    if (comp_reg < tam) {
+        comp_reg = fread(buffer, sizeof(char), comp_reg, arq);
+        buffer[comp_reg] = '\0';
+        return comp_reg;
+    } else {
+        printf("Buffer overflow\n");
+        return 0;
+    }
 }
