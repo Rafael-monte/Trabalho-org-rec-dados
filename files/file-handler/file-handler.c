@@ -74,7 +74,7 @@ void OperacoesEmLote(struct Processo* processo)
 {
     printf("Arquivo -> %s \n", processo->nome_arq_principal);
     printf("Arquivo secundario ->%s\n", processo->nome_arq_busca);
-    FILE* arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "rb");
+    FILE* arquivoOrigem;
     FILE* arquivo_comandos = AbrirArquivo(processo->nome_arq_busca, "r+");
     printf("Iniciando operacoes em lote!\n\n");
     struct Processo* comandos = ProcessarArquivoComandos(arquivo_comandos);
@@ -85,13 +85,17 @@ void OperacoesEmLote(struct Processo* processo)
     {
         if (pivot->operacao == 'b')
         {
+            arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "rb");
             BuscarRegistro(arquivoOrigem, pivot->parametro_operacao);
         }
 
         if (pivot->operacao == 'i')
         {
+            arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "a+");
             InserirRegistro(arquivoOrigem, pivot->parametro_operacao);
         }
+
+        fclose(arquivoOrigem);
         pivot = pivot->proximo_processo;
     }
 
