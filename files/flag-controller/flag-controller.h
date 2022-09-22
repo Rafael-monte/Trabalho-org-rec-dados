@@ -13,6 +13,7 @@ struct Processo {
 
 const char* ARQUIVO_OPERACOES="-e";
 const char* ARQUIVO_IMPORTACAO="-i";
+const char* ARQUIVO_IMPRESSAO_LED="-p";
 const int POSICAO_FLAG_OPERACAO=1;
 const int POSICAO_ARQUIVO_TARGET=2;
 const char* NOME_ARQUIVO_PRINCIPAL="dados.dat\0";
