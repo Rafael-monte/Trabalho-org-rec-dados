@@ -8,8 +8,13 @@
 #define TAM_MAX_REG 256
 #define DELIM_STR "|"
 
+typedef struct Led LED;
+LED* led;
+
 void HandleProcesso(struct Processo* processo) 
 {
+    led = malloc(sizeof(LED));
+    led->cabeca = -1;
     printf("Processo: %c\n", processo->operacao);
 
     if (processo->operacao == 'i')
@@ -74,23 +79,34 @@ void OperacoesEmLote(struct Processo* processo)
 {
     printf("Arquivo -> %s \n", processo->nome_arq_principal);
     printf("Arquivo secundario ->%s\n", processo->nome_arq_busca);
-    FILE* arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "rb");
+    FILE* arquivoOrigem;
     FILE* arquivo_comandos = AbrirArquivo(processo->nome_arq_busca, "r+");
     printf("Iniciando operacoes em lote!\n\n");
     struct Processo* comandos = ProcessarArquivoComandos(arquivo_comandos);
     struct Processo* pivot = comandos;
-
+    
 
     while (pivot != NULL)
     {
         if (pivot->operacao == 'b')
         {
+            arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "rb");
             BuscarRegistro(arquivoOrigem, pivot->parametro_operacao);
         }
 
         if (pivot->operacao == 'i')
         {
+            arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "rb+");
+            fread(&led->cabeca, sizeof(int), 1, arquivoOrigem);
             InserirRegistro(arquivoOrigem, pivot->parametro_operacao);
+        }
+
+
+        if (pivot->operacao == 'r')
+        {
+            arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "rb+");
+            fread(&led->cabeca, sizeof(int), 1, arquivoOrigem);
+            RemoverRegistro(arquivoOrigem, pivot->parametro_operacao);
         }
         pivot = pivot->proximo_processo;
     }
@@ -148,7 +164,6 @@ int buscar_campo(char* campo, int tam, FILE* arquivo_dados){
 }
 
 
-
 int InserirRegistro(FILE* arquivo_dados, char registro[256])
 {
     printf("Iniciando insercao do registro %s\n", registro);
@@ -157,6 +172,7 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256])
     int offset = BuscarRegistro(arquivo_dados, token);
     if(offset == -1){
         printf("Adicionando registro no final do arquivo...\n");
+        fseek(arquivo_dados, 0, SEEK_END);
         int comp_reg = strlen(registro);
         char tamanho_em_string[10];
         char registro_final[512];
@@ -167,8 +183,40 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256])
     }else{
         printf("Codigo ja existe \n");
         printf("RRN: %i \n", offset);
-        fseek(arquivo_dados, offset, SEEK_SET);
     }
+     fseek(arquivo_dados, offset, SEEK_SET);
+}
+
+
+
+int RemoverRegistro(FILE* arquivo_dados, char* id_reg)
+{
+    int offset = BuscarRegistro(arquivo_dados, id_reg);
+    if(offset == -1){
+        printf("Registro nao encontrado \n");
+    }else{
+
+        printf("Removendo registro %s...\n", id_reg);
+        char tamanho_registro[4];
+        fseek(arquivo_dados, offset, SEEK_SET);
+        buscar_campo(tamanho_registro, 4, arquivo_dados);
+        fseek(arquivo_dados, offset + strlen(tamanho_registro) + 1, SEEK_SET);
+        char cabeca_led[10];
+        strcpy(cabeca_led, itoa(led->cabeca, cabeca_led, 10));
+        strcat(cabeca_led, DELIM_STR);
+        fputc('*', arquivo_dados);
+        fputs(cabeca_led, arquivo_dados);
+        mudar_cabecalho_arquivo(offset);
+    }
+}
+
+
+void mudar_cabecalho_arquivo(int novo_valor_cabecalho)
+{
+    FILE *arq = AbrirArquivo("dados.dat", "rb+");
+    fseek(arq, 0, SEEK_SET);
+    fwrite(led, sizeof(LED), 1, arq);
+    fclose(arq);
 }
 
 
