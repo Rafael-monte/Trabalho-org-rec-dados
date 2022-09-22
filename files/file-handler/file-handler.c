@@ -38,6 +38,7 @@ void ImportarRegistroEmArquivo(struct Processo* processo)
     FILE* arquivoOrigem = AbrirArquivo(processo->nome_arq_principal, "wb");
     FILE* arquivoAdicional = AbrirArquivo(processo->nome_arq_busca, "r+");
     printf("Iniciando importacao de registro!\n");
+    fwrite(&led->cabeca, sizeof(int), 1, arquivoOrigem);
     CopiarConteudoDoArquivo(arquivoAdicional, arquivoOrigem);
     printf("Importacao de arquivo finalizada!");
     fclose(arquivoAdicional);
@@ -130,10 +131,10 @@ int BuscarRegistro(FILE* arquivo_dados, char* id_reg)
         char * codigo_registro = buscar_codigo_registro(reg);
         if(atoi(codigo_registro) == atoi(id_reg)){
             printf("Registro encontrado: %s\n", reg);
+            LogBusca(reg, strlen(reg));
             return offset;
         }
         buscar_campo(tam_reg, 4, arquivo_dados);
-        
     }
     printf("Registro nao encontrado \n");
     return -1;
@@ -166,12 +167,10 @@ int buscar_campo(char* campo, int tam, FILE* arquivo_dados){
 
 int InserirRegistro(FILE* arquivo_dados, char registro[256])
 {
-    printf("Iniciando insercao do registro %s\n", registro);
-
     char *token = buscar_codigo_registro(registro);
     int offset = BuscarRegistro(arquivo_dados, token);
     if(offset == -1){
-        printf("Adicionando registro no final do arquivo...\n");
+        printf("Local: Final do arquivo...\n");
         fseek(arquivo_dados, 0, SEEK_END);
         int comp_reg = strlen(registro);
         char tamanho_em_string[10];
@@ -180,23 +179,24 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256])
         strcat(registro_final, DELIM_STR);
         strcat(registro_final, registro);
         fputs(registro_final, arquivo_dados);
+        LogInsercao(token, strlen(registro), (offset==-1));
     }else{
         printf("Codigo ja existe \n");
         printf("RRN: %i \n", offset);
     }
-     fseek(arquivo_dados, offset, SEEK_SET);
+    fseek(arquivo_dados, offset, SEEK_SET);
 }
 
 
 
 int RemoverRegistro(FILE* arquivo_dados, char* id_reg)
 {
+    printf("Remocao do registro de chave \"%s\"\n", id_reg);
     int offset = BuscarRegistro(arquivo_dados, id_reg);
     if(offset == -1){
         printf("Registro nao encontrado \n");
     }else{
 
-        printf("Removendo registro %s...\n", id_reg);
         char tamanho_registro[4];
         fseek(arquivo_dados, offset, SEEK_SET);
         buscar_campo(tamanho_registro, 4, arquivo_dados);
@@ -206,6 +206,7 @@ int RemoverRegistro(FILE* arquivo_dados, char* id_reg)
         strcat(cabeca_led, DELIM_STR);
         fputc('*', arquivo_dados);
         fputs(cabeca_led, arquivo_dados);
+        LogRemocao(id_reg, offset, offset);
         mudar_cabecalho_arquivo(offset);
     }
 }
@@ -217,6 +218,15 @@ void mudar_cabecalho_arquivo(int novo_valor_cabecalho)
     fseek(arq, 0, SEEK_SET);
     fwrite(led, sizeof(LED), 1, arq);
     fclose(arq);
+}
+
+
+void ImprimirCabecaLED(FILE* arquivo_dados)
+{
+    if (led->cabeca == -1)
+    {
+        printf("LED: [-1]\n");
+    }
 }
 
 

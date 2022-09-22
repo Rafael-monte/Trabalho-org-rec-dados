@@ -4,9 +4,9 @@
 
 void LogError(char* ERROR_TYPE, char* object);
 
-void LogRemocao(char* chaveRegistro, short bytes, short offset);
+void LogRemocao(char* chaveRegistro, int bytes, int offset);
 
-void LogBusca(char* registro, short bytes);
+void LogBusca(char* registro, int bytes);
 
 void LogInsercao(char* chave, short bytes, int isFimArquivo);
 
