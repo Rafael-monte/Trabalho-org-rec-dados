@@ -137,13 +137,11 @@ int BuscarRegistro(FILE* arquivo_dados, char* id_reg)
         fgets(reg, atoi(tam_reg), arquivo_dados);
         char * codigo_registro = buscar_codigo_registro(reg);
         if(atoi(codigo_registro) == atoi(id_reg)){
-            printf("Registro encontrado: %s\n", reg);
             LogBusca(reg, strlen(reg));
             return offset;
         }
         buscar_campo(tam_reg, 4, arquivo_dados);
     }
-    printf("Registro nao encontrado \n");
     return -1;
 }
 
@@ -177,7 +175,6 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256])
     char *token = buscar_codigo_registro(registro);
     int offset = BuscarRegistro(arquivo_dados, token);
     if(offset == -1){
-        printf("Local: Final do arquivo...\n");
         fseek(arquivo_dados, 0, SEEK_END);
         int comp_reg = strlen(registro);
         char tamanho_em_string[10];
@@ -198,10 +195,9 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256])
 
 int RemoverRegistro(FILE* arquivo_dados, char* id_reg)
 {
-    printf("Remocao do registro de chave \"%s\"\n", id_reg);
     int offset = BuscarRegistro(arquivo_dados, id_reg);
     if(offset == -1){
-        printf("Registro nao encontrado \n");
+       LogError(REGISTER_NOT_FOUND, id_reg);
     }else{
 
         char tamanho_registro[4];
