@@ -8,6 +8,9 @@
 #define TAM_MAX_REG 256
 #define DELIM_STR "|"
 
+
+
+typedef struct offset_handler offsetHandler;
 typedef struct Led LED;
 LED* led;
 
@@ -31,8 +34,9 @@ void HandleProcesso(struct Processo* processo)
 
     if (processo->operacao == 'p')
     {
-        printf("Bora processar a led!\n");
-        ImprimirCabecaLED(AbrirArquivo("dados.dat", "rb+"));
+        FILE* arquivo = AbrirArquivo("dados.dat", "rb+");
+        ImprimirCabecaLED(arquivo);
+        fclose(arquivo);
         return;
     }
 
@@ -174,21 +178,60 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256])
 {
     char *token = buscar_codigo_registro(registro);
     int offset = BuscarRegistro(arquivo_dados, token);
-    if(offset == -1){
-        fseek(arquivo_dados, 0, SEEK_END);
-        int comp_reg = strlen(registro);
-        char tamanho_em_string[10];
-        char registro_final[512];
-        strcpy(registro_final, itoa(comp_reg, tamanho_em_string, 10));
-        strcat(registro_final, DELIM_STR);
-        strcat(registro_final, registro);
-        fputs(registro_final, arquivo_dados);
-        LogInsercao(token, strlen(registro), (offset==-1));
-    }else{
-        printf("Codigo ja existe \n");
-        printf("RRN: %i \n", offset);
+    if (offset != -1)
+    {
+        LogError(REG_ALREADY_EXISTS, token);
+        return -1;
     }
-    fseek(arquivo_dados, offset, SEEK_SET);
+
+    offsetHandler melhor_encaixe = best_fit(strlen(registro), arquivo_dados);
+
+    int comp_reg = strlen(registro);
+    char tamanho_em_string[10];
+    char registro_com_tamanho[512];
+    strcpy(registro_com_tamanho, itoa(comp_reg, tamanho_em_string, 10));
+    strcat(registro_com_tamanho, "|");
+    strcat(registro_com_tamanho, registro);
+
+    if(melhor_encaixe.offset == -1)
+    {
+        fseek(arquivo_dados, 0, SEEK_END);
+        fputs(registro_com_tamanho, arquivo_dados);
+        LogInsercao(token, strlen(registro_com_tamanho), (melhor_encaixe.offset == -1));
+    }
+    else
+    {
+        int offset_prox_reg = melhor_encaixe.offset  + sizeof(melhor_encaixe.tamanho) - 1;
+        fseek(arquivo_dados, offset_prox_reg, SEEK_SET);
+        for(int i = 0; i < melhor_encaixe.tamanho - 1; i++)
+        {
+            if(i >= strlen(registro))
+            {
+                fputc('#', arquivo_dados);
+            }
+            else
+            {
+                fputc(registro[i], arquivo_dados);
+            }
+        }
+        fputc('|', arquivo_dados);
+        if(melhor_encaixe.offset_anterior == 0)
+        {
+            mudar_cabecalho_arquivo(melhor_encaixe.prox_offset);
+        }
+        else
+        {
+            fseek(arquivo_dados, melhor_encaixe.offset_anterior, SEEK_SET);
+            char tam_reg_offset_ant[4];
+            char novo_offset[10];
+            buscar_campo(tam_reg_offset_ant, 4, arquivo_dados);
+            char offset_prox[10];
+            strcpy(novo_offset, itoa(melhor_encaixe.prox_offset, offset_prox, 10));
+            strcat(novo_offset, DELIM_STR);
+            LogInsercao(token, atoi(novo_offset), 0);
+            fputs(novo_offset, arquivo_dados);
+        }
+    }
 }
 
 
@@ -226,9 +269,27 @@ void mudar_cabecalho_arquivo(int novo_valor_cabecalho)
 
 void ImprimirCabecaLED(FILE* arquivo_dados)
 {
-    if (led->cabeca == -1)
-    {
+    char tam_reg[4];
+    char prox_offset[10];
+    
+    offsetHandler reg_atual;
+
+    reg_atual.offset = led->cabeca;
+    reg_atual.offset_anterior = 0;
+
+    if(reg_atual.offset == -1){
         printf("LED: [-1]\n");
+        return;
+    }
+
+    while(reg_atual.offset != -1 && reg_atual.offset != 0){
+        printf("Offset: %d\n", reg_atual.offset);
+        fseek(arquivo_dados, reg_atual.offset, SEEK_SET);
+        buscar_campo(tam_reg, 4, arquivo_dados);
+        fseek(arquivo_dados, 1, SEEK_CUR);
+        buscar_campo(prox_offset, 10, arquivo_dados);
+        reg_atual.offset_anterior = reg_atual.offset;
+        reg_atual.offset = atoi(prox_offset);
     }
 }
 
@@ -242,4 +303,33 @@ FILE* AbrirArquivo(char* nomeArquivo, char* modoAcesso)
         exit(1);
     }
     return arq;
+}
+
+
+struct offset_handler best_fit(int tam_registro_atual, FILE* arquivo_dados)
+{
+    int offset = -1;
+    char tam_reg[4];
+    char prox_offset[10];
+    offsetHandler melhor_local;
+
+    melhor_local.offset = led->cabeca;
+    melhor_local.offset_anterior = 0;
+
+    while(melhor_local.offset != -1){
+        fseek(arquivo_dados, melhor_local.offset, SEEK_SET);
+        buscar_campo(tam_reg, 4, arquivo_dados);
+        fseek(arquivo_dados, 1, SEEK_CUR);
+        buscar_campo(prox_offset, 10, arquivo_dados);
+
+        if(atoi(tam_reg) >= tam_registro_atual){
+            melhor_local.tamanho = atoi(tam_reg);
+            melhor_local.prox_offset = atoi(prox_offset);
+            break;
+        }
+
+        melhor_local.offset_anterior = melhor_local.offset;
+        melhor_local.offset = atoi(prox_offset);
+    }
+    return melhor_local;
 }

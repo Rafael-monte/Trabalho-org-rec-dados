@@ -21,6 +21,13 @@ struct Led {
     int cabeca;
 };
 
+struct offset_handler {
+    int offset;
+    int prox_offset;
+    int offset_anterior;
+    int tamanho;
+};
+
 
 void HandleProcesso(struct Processo* processo);
 
@@ -50,5 +57,6 @@ int buscar_campo(char* campo, int tam, FILE* arquivo_dados);
 
 char* buscar_codigo_registro(char registro[512]);
 
+struct offset_handler best_fit(int tam_registro_atual, FILE* arquivo_dados);
 
 #endif //TRABALHO_ORG_E_REC_DADOS_FILE_HANDLER_H

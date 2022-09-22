@@ -15,11 +15,11 @@ void LogRemocao(char* chaveRegistro, int bytes, int offset)
 
 void LogBusca(char* registro, int bytes)
 {
-    printf("\n\033[0;33m%s (%d) bytes\n", registro, bytes);
+    printf("\n\033[0;33mRegistro encontrado: %s (%d) bytes\n", registro, bytes);
     ClearColor();
 }
 
-void LogInsercao(char* chave, short bytes, int isFimArquivo)
+void LogInsercao(char* chave, int bytes, int isFimArquivo)
 {
     printf("\n\033[0;33mInsercao do registro de chave \"%s\" (%d) bytes\n",chave, bytes);
     if (isFimArquivo)

@@ -20,7 +20,7 @@ struct Processo* ProcessarFlagsIniciais(int numero_argumentos, char* argumentos[
             processo->operacao='e';
             strcpy(processo->nome_arq_busca, argumentos[POSICAO_ARQUIVO_TARGET]);
         }
-        else if (strcmp(argumentos[POSICAO_FLAG_OPERACAO], ARQUIVO_OPERACOES) == 0)
+        else if (strcmp(argumentos[POSICAO_FLAG_OPERACAO], ARQUIVO_IMPRESSAO_LED) == 0)
         {
            processo->operacao='p';
         }
