@@ -9,19 +9,24 @@ struct Processo* ProcessarFlagsIniciais(int numero_argumentos, char* argumentos[
     struct Processo* processo = malloc(sizeof(processo));
     if (numero_argumentos > 1)
     {
-        strcpy(processo->nome_arq_busca, argumentos[POSICAO_ARQUIVO_TARGET]);
-
+        
         strcpy(processo->nome_arq_principal, NOME_ARQUIVO_PRINCIPAL);
         if (strcmp(argumentos[POSICAO_FLAG_OPERACAO], ARQUIVO_IMPORTACAO) == 0) {
             processo->operacao='i';
+            strcpy(processo->nome_arq_busca, argumentos[POSICAO_ARQUIVO_TARGET]);
         }
         else if (strcmp(argumentos[POSICAO_FLAG_OPERACAO], ARQUIVO_OPERACOES) == 0)
         {
             processo->operacao='e';
+            strcpy(processo->nome_arq_busca, argumentos[POSICAO_ARQUIVO_TARGET]);
         }
-        else
+        else if (strcmp(argumentos[POSICAO_FLAG_OPERACAO], ARQUIVO_OPERACOES) == 0)
         {
-            printf("\033[0;31m[ERRO] Nao foi possivel processar o argumento %s. Abortando.", argumentos[POSICAO_FLAG_OPERACAO]);
+           processo->operacao='p';
+        }
+        else 
+        {
+            LogError(ERROR_OPENING_WITH_FLAG, argumentos[POSICAO_FLAG_OPERACAO]);
             exit(EXIT_FAILURE);
         }
         return processo;

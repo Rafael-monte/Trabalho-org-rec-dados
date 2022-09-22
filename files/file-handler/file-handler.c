@@ -23,9 +23,16 @@ void HandleProcesso(struct Processo* processo)
         return;
     }
 
-    if (processo ->operacao == 'e') 
+    if (processo->operacao == 'e') 
     {
         OperacoesEmLote(processo);
+        return;
+    }
+
+    if (processo->operacao == 'p')
+    {
+        printf("Bora processar a led!\n");
+        ImprimirCabecaLED(AbrirArquivo("dados.dat", "rb+"));
         return;
     }
 
@@ -239,22 +246,4 @@ FILE* AbrirArquivo(char* nomeArquivo, char* modoAcesso)
         exit(1);
     }
     return arq;
-}
-
-
-short leia_reg(char * buffer, int tam, FILE* arq){
-    short comp_reg;
-
-    if (fread(&comp_reg, sizeof(comp_reg), 1, arq) == 0) {
-        return 0;
-    }
-
-    if (comp_reg < tam) {
-        comp_reg = fread(buffer, sizeof(char), comp_reg, arq);
-        buffer[comp_reg] = '\0';
-        return comp_reg;
-    } else {
-        printf("Buffer overflow\n");
-        return 0;
-    }
 }

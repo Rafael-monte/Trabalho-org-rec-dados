@@ -42,6 +42,8 @@ int InserirRegistro(FILE* arquivo_dados, char registro[256]);
 
 int RemoverRegistro(FILE* arquivo_dados, char* id_reg);
 
+void ImprimirCabecaLED(FILE* arquivo_dados);
+
 void mudar_cabecalho_arquivo(int novo_valor_cabecalho);
 
 int buscar_campo(char* campo, int tam, FILE* arquivo_dados);
